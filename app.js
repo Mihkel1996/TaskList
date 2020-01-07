@@ -95,7 +95,7 @@ function removeTask(event){
     if(event.target.classList.contains('delete-item')){
         if(confirm('Are you sure you want to delete the task?')){
             event.target.parentElement.remove();
-
+            console.log(event.target.parentElement.textContent);
             //Remove from local storage
             removeTaskFromLocalStorage(event.target.parentElement);
         }
@@ -112,20 +112,29 @@ function removeTaskFromLocalStorage(taskItem){
     }
 
     tasks.forEach(function(task, index){
-        if(taskItem.textContent === task){
+        if(taskItem.textContent.slice(0, -1) === task){
             tasks.splice(index, 1);
         }
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-function clearTasks(){
+function clearTasks(event){
     if(confirm("Clear the task list?")){
-        while(taskList.firstChild){
-            taskList.removeChild(taskList.firstChild);
+        //while(taskList.firstChild){
+          //  taskList.removeChild(taskList.firstChild);
+            event.target.parentElement.remove();
+            console.log(event.target.parentElement.textContent);
+            //Remove from local storage
+            
+            localStorage.clear();
         }
+        
+   
     }
-}
+
+    
+//}
 
 function filterTasks(event){
     const userFilter = event.target.value.toLowerCase();
